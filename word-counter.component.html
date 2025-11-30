@@ -1,0 +1,35 @@
+
+<div class="max-w-4xl mx-auto">
+  <div class="text-center mb-8">
+    <h2 class="text-3xl font-bold">Word Counter</h2>
+    <p class="text-slate-500 dark:text-slate-400">Analyze your text's word, character, and sentence count.</p>
+  </div>
+  
+  <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md border border-slate-200 dark:border-slate-700">
+    <textarea 
+      class="w-full h-64 p-4 border border-slate-300 dark:border-slate-600 rounded-md resize-y focus:ring-2 focus:ring-primary-500 focus:outline-none dark:bg-slate-700" 
+      placeholder="Start typing or paste your text here..."
+      [value]="text()"
+      (input)="onTextInput($event)"
+    ></textarea>
+    
+    <div class="flex justify-end mt-2">
+      <button (click)="clearText()" class="text-sm text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-200">Clear Text</button>
+    </div>
+
+    <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+      <div class="bg-slate-100 dark:bg-slate-700 p-4 rounded-lg">
+        <div class="text-3xl font-bold text-primary-600 dark:text-primary-400">{{ stats().words }}</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400">Words</div>
+      </div>
+      <div class="bg-slate-100 dark:bg-slate-700 p-4 rounded-lg">
+        <div class="text-3xl font-bold text-primary-600 dark:text-primary-400">{{ stats().characters }}</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400">Characters</div>
+      </div>
+      <div class="bg-slate-100 dark:bg-slate-700 p-4 rounded-lg">
+        <div class="text-3xl font-bold text-primary-600 dark:text-primary-400">{{ stats().sentences }}</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400">Sentences</div>
+      </div>
+    </div>
+  </div>
+</div>

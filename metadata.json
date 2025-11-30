@@ -1,0 +1,5 @@
+{
+  "name": "All-in-One Tools",
+  "description": "A modern, client-side tools website featuring a password generator, word counter, QR code generator, meta tag generator, text-to-speech, and an AI idea generator powered by Gemini.",
+  "requestFramePermissions": []
+}

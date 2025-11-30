@@ -1,0 +1,48 @@
+
+<div class="max-w-2xl mx-auto">
+  <div class="text-center mb-8">
+    <h2 class="text-3xl font-bold">Text to Speech</h2>
+    <p class="text-slate-500 dark:text-slate-400">Convert written text into natural-sounding audio.</p>
+  </div>
+  
+  <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md border border-slate-200 dark:border-slate-700">
+    <textarea 
+      class="w-full h-48 p-4 border border-slate-300 dark:border-slate-600 rounded-md resize-y focus:ring-2 focus:ring-primary-500 focus:outline-none dark:bg-slate-700" 
+      placeholder="Enter text to speak..."
+      [value]="text()"
+      (input)="onTextInput($event)"
+    ></textarea>
+    
+    <div class="mt-4 space-y-4">
+      <div>
+        <label for="voice" class="block text-sm font-medium mb-1">Voice</label>
+        <select id="voice" (change)="onVoiceChange($event)" class="w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md dark:bg-slate-700">
+          @for (voice of voices(); track voice.voiceURI) {
+            <option [value]="voice.voiceURI" [selected]="voice.voiceURI === selectedVoice()?.voiceURI">{{ voice.name }} ({{ voice.lang }})</option>
+          }
+        </select>
+      </div>
+      
+      <div class="flex items-center justify-between">
+        <label for="rate" class="font-medium">Rate</label>
+        <span class="text-primary-600 dark:text-primary-400 font-semibold">{{ rate() }}</span>
+      </div>
+      <input type="range" id="rate" min="0.5" max="2" step="0.1" [value]="rate()" (input)="onRateChange($event)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700">
+
+      <div class="flex items-center justify-between">
+        <label for="pitch" class="font-medium">Pitch</label>
+        <span class="text-primary-600 dark:text-primary-400 font-semibold">{{ pitch() }}</span>
+      </div>
+      <input type="range" id="pitch" min="0" max="2" step="0.1" [value]="pitch()" (input)="onPitchChange($event)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700">
+    </div>
+
+    <div class="mt-6 flex space-x-4">
+      <button (click)="speak()" [disabled]="isSpeaking()" class="flex-1 bg-primary-600 text-white font-bold py-3 px-4 rounded-md hover:bg-primary-700 transition duration-300 disabled:bg-slate-400 disabled:cursor-not-allowed">
+        Speak
+      </button>
+      <button (click)="stop()" [disabled]="!isSpeaking()" class="flex-1 bg-red-600 text-white font-bold py-3 px-4 rounded-md hover:bg-red-700 transition duration-300 disabled:bg-slate-400 disabled:cursor-not-allowed">
+        Stop
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EleBooks - Featured Categories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px 10px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .book-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-image {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .book-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .book-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            gap: 10px;
+        }
+
+        .book-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #000;
+            line-height: 1.4;
+            text-decoration: none;
+            display: block;
+            transition: color 0.3s;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .book-title:hover {
+            color: #7c3aed;
+        }
+
+        .book-rating {
+            display: flex;
+            justify-content: center;
+            gap: 3px;
+            margin: 5px 0;
+        }
+
+        .star {
+            color: #ffa500;
+            font-size: 16px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            color: white;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(135deg, #6d28d9 0%, #5b21b6 100%);
+            transform: scale(1.03);
+        }
+
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* TABLET STYLES */
+        @media (max-width: 1024px) {
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 20px;
+                padding: 15px 0;
+            }
+
+            .book-image {
+                height: 250px;
+            }
+
+            .book-info {
+                padding: 12px;
+                gap: 8px;
+            }
+
+            .book-title {
+                font-size: 14px;
+                min-height: 40px;
+            }
+
+            .download-btn {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+        }
+
+        /* TABLET MEDIUM */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px 8px;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 18px;
+                padding: 10px 0;
+            }
+
+            .book-image {
+                height: 220px;
+            }
+
+            .book-info {
+                padding: 10px;
+                gap: 7px;
+            }
+
+            .book-title {
+                font-size: 13px;
+                min-height: 35px;
+            }
+
+            .star {
+                font-size: 14px;
+            }
+
+            .download-btn {
+                padding: 9px 12px;
+                font-size: 12px;
+            }
+        }
+
+        /* MOBILE LANDSCAPE */
+        @media (max-width: 600px) {
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 15px;
+            }
+
+            .book-image {
+                height: 190px;
+            }
+
+            .book-info {
+                padding: 8px;
+                gap: 6px;
+            }
+
+            .book-title {
+                font-size: 12px;
+                min-height: 32px;
+            }
+
+            .star {
+                font-size: 13px;
+            }
+
+            .download-btn {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+        }
+
+        /* MOBILE PORTRAIT */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px 5px;
+            }
+
+            .books-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .book-image {
+                height: 160px;
+            }
+
+            .book-info {
+                padding: 8px;
+                gap: 6px;
+            }
+
+            .book-title {
+                font-size: 11px;
+                min-height: 30px;
+            }
+
+            .star {
+                font-size: 12px;
+            }
+
+            .download-btn {
+                padding: 7px 10px;
+                font-size: 11px;
+            }
+        }
+
+        /* EXTRA SMALL MOBILE */
+        @media (max-width: 360px) {
+            .books-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .book-image {
+                height: 140px;
+            }
+
+            .book-info {
+                padding: 6px;
+                gap: 5px;
+            }
+
+            .book-title {
+                font-size: 10px;
+                min-height: 28px;
+            }
+
+            .star {
+                font-size: 11px;
+            }
+
+            .download-btn {
+                padding: 6px 8px;
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="books-grid" id="booksGrid">
+            <!-- Books will be generated here -->
+        </div>
+    </div>
+
+    <script>
+        const booksData = [
+            {
+                id: 1,
+                title: "Deep Work: Rules for Focused Success",
+                coverImage: "https://via.placeholder.com/200x300?text=Deep+Work",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 2,
+                title: "The Art of Learning",
+                coverImage: "https://via.placeholder.com/200x300?text=Art+of+Learning",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 3,
+                title: "Lean Startup",
+                coverImage: "https://via.placeholder.com/200x300?text=Lean+Startup",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 4,
+                title: "Zero to One",
+                coverImage: "https://via.placeholder.com/200x300?text=Zero+to+One",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 5,
+                title: "Good to Great",
+                coverImage: "https://via.placeholder.com/200x300?text=Good+to+Great",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 6,
+                title: "Leaders Eat Last",
+                coverImage: "https://via.placeholder.com/200x300?text=Leaders+Eat+Last",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 7,
+                title: "AI 2041",
+                coverImage: "https://via.placeholder.com/200x300?text=AI+2041",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 8,
+                title: "The Singularity is Near",
+                coverImage: "https://via.placeholder.com/200x300?text=Singularity",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 9,
+                title: "Algorithms to Live By",
+                coverImage: "https://via.placeholder.com/200x300?text=Algorithms",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 10,
+                title: "The Innovator's Dilemma",
+                coverImage: "https://via.placeholder.com/200x300?text=Innovator",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 11,
+                title: "Mindset: The New Psychology",
+                coverImage: "https://via.placeholder.com/200x300?text=Mindset",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 12,
+                title: "Start With Why",
+                coverImage: "https://via.placeholder.com/200x300?text=Start+Why",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 13,
+                title: "The 7 Habits of Highly Effective People",
+                coverImage: "https://via.placeholder.com/200x300?text=7+Habits",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 14,
+                title: "Atomic Habits",
+                coverImage: "https://via.placeholder.com/200x300?text=Atomic+Habits",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 15,
+                title: "How to Win Friends and Influence People",
+                coverImage: "https://via.placeholder.com/200x300?text=Win+Friends",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 16,
+                title: "The Power of Now",
+                coverImage: "https://via.placeholder.com/200x300?text=Power+of+Now",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 17,
+                title: "Man's Search for Meaning",
+                coverImage: "https://via.placeholder.com/200x300?text=Search+Meaning",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 18,
+                title: "The 48 Laws of Power",
+                coverImage: "https://via.placeholder.com/200x300?text=48+Laws",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 19,
+                title: "Thinking, Fast and Slow",
+                coverImage: "https://via.placeholder.com/200x300?text=Thinking",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 20,
+                title: "Emotional Intelligence",
+                coverImage: "https://via.placeholder.com/200x300?text=EQ",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 21,
+                title: "The Business Model Canvas",
+                coverImage: "https://via.placeholder.com/200x300?text=Business+Model",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 22,
+                title: "Blue Ocean Strategy",
+                coverImage: "https://via.placeholder.com/200x300?text=Blue+Ocean",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 23,
+                title: "Good Strategy Bad Strategy",
+                coverImage: "https://via.placeholder.com/200x300?text=Strategy",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 24,
+                title: "The Lean Product Playbook",
+                coverImage: "https://via.placeholder.com/200x300?text=Lean+Product",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 25,
+                title: "Crushing It",
+                coverImage: "https://via.placeholder.com/200x300?text=Crushing+It",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 26,
+                title: "The E-Myth Revisited",
+                coverImage: "https://via.placeholder.com/200x300?text=E-Myth",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 27,
+                title: "Traction",
+                coverImage: "https://via.placeholder.com/200x300?text=Traction",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 28,
+                title: "The Startup Way",
+                coverImage: "https://via.placeholder.com/200x300?text=Startup+Way",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 29,
+                title: "Venture Deals",
+                coverImage: "https://via.placeholder.com/200x300?text=Venture",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 30,
+                title: "The Art of Negotiation",
+                coverImage: "https://via.placeholder.com/200x300?text=Negotiation",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 31,
+                title: "Artificial Intelligence Basics",
+                coverImage: "https://via.placeholder.com/200x300?text=AI+Basics",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 32,
+                title: "Machine Learning for Beginners",
+                coverImage: "https://via.placeholder.com/200x300?text=ML",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 33,
+                title: "Deep Learning",
+                coverImage: "https://via.placeholder.com/200x300?text=Deep+Learning",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 34,
+                title: "The Master Algorithm",
+                coverImage: "https://via.placeholder.com/200x300?text=Master+Algorithm",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 35,
+                title: "Life 3.0",
+                coverImage: "https://via.placeholder.com/200x300?text=Life+3.0",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 36,
+                title: "Superintelligence",
+                coverImage: "https://via.placeholder.com/200x300?text=Super+Intelligence",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 37,
+                title: "The Second Machine Age",
+                coverImage: "https://via.placeholder.com/200x300?text=2nd+Machine",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 38,
+                title: "Prediction Machines",
+                coverImage: "https://via.placeholder.com/200x300?text=Prediction",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 39,
+                title: "Artificial Intelligence: A Guide for Humans",
+                coverImage: "https://via.placeholder.com/200x300?text=AI+Guide",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 40,
+                title: "The Age of Distraction",
+                coverImage: "https://via.placeholder.com/200x300?text=Distraction",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 41,
+                title: "Range: Why Generalists Triumph",
+                coverImage: "https://via.placeholder.com/200x300?text=Range",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 42,
+                title: "Peak Performance",
+                coverImage: "https://via.placeholder.com/200x300?text=Peak+Performance",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 43,
+                title: "Grit: The Power of Passion",
+                coverImage: "https://via.placeholder.com/200x300?text=Grit",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 44,
+                title: "The Growth Mindset",
+                coverImage: "https://via.placeholder.com/200x300?text=Growth+Mindset",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 45,
+                title: "Peak: Secrets from the New Science",
+                coverImage: "https://via.placeholder.com/200x300?text=Peak+Science",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 46,
+                title: "Willpower: Rediscovering the Greatest",
+                coverImage: "https://via.placeholder.com/200x300?text=Willpower",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 47,
+                title: "The Motivation Myth",
+                coverImage: "https://via.placeholder.com/200x300?text=Motivation",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 48,
+                title: "Permission to Feel",
+                coverImage: "https://via.placeholder.com/200x300?text=Permission",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 49,
+                title: "The Purpose Driven Life",
+                coverImage: "https://via.placeholder.com/200x300?text=Purpose",
+                rating: 5,
+                downloadLink: "#"
+            },
+            {
+                id: 50,
+                title: "Limitless: Upgrade Your Brain",
+                coverImage: "https://via.placeholder.com/200x300?text=Limitless",
+                rating: 5,
+                downloadLink: "#"
+            }
+        ];
+
+        function renderBooks() {
+            const grid = document.getElementById('booksGrid');
+            grid.innerHTML = '';
+
+            booksData.forEach(book => {
+                const stars = '★'.repeat(book.rating) + '☆'.repeat(5 - book.rating);
+                const card = `
+                    <div class="book-card">
+                        <div class="book-image">
+                            <img src="${book.coverImage}" alt="${book.title}">
+                        </div>
+                        <div class="book-info">
+                            <div class="book-title">${book.title}</div>
+                            <div class="book-rating">
+                                ${stars.split('').map(s => `<span class="star">${s}</span>`).join('')}
+                            </div>
+                            <a href="${book.downloadLink}" class="download-btn">📥 Download</a>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        // Initial render
+        renderBooks();
+    </script>
+</body>
+</html>

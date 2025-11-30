@@ -1,0 +1,47 @@
+
+<div class="max-w-3xl mx-auto">
+  <div class="text-center mb-8">
+    <h2 class="text-3xl font-bold">AI Idea Generator</h2>
+    <p class="text-slate-500 dark:text-slate-400">Powered by Google Gemini. Enter a topic to brainstorm ideas.</p>
+  </div>
+  
+  <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md border border-slate-200 dark:border-slate-700">
+    <div class="flex flex-col sm:flex-row gap-2">
+      <input 
+        type="text" 
+        [value]="topic()"
+        (input)="onTopicChange($event)"
+        placeholder="e.g., a new mobile app, a blog post about AI"
+        class="flex-grow p-3 border border-slate-300 dark:border-slate-600 rounded-md focus:ring-2 focus:ring-primary-500 focus:outline-none dark:bg-slate-700"
+      />
+      <button 
+        (click)="generateIdeas()" 
+        [disabled]="loading()"
+        class="bg-primary-600 text-white font-bold py-3 px-6 rounded-md hover:bg-primary-700 transition duration-300 disabled:bg-slate-400 disabled:cursor-wait flex items-center justify-center"
+      >
+        @if (loading()) {
+          <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span>Generating...</span>
+        } @else {
+          <span>Generate Ideas</span>
+        }
+      </button>
+    </div>
+
+    @if (error()) {
+      <div class="mt-4 p-4 bg-red-100 dark:bg-red-900/50 border border-red-300 dark:border-red-700 text-red-700 dark:text-red-300 rounded-md">
+        {{ error() }}
+      </div>
+    }
+
+    @if (result()) {
+      <div class="mt-6 p-4 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900/50">
+        <h3 class="text-lg font-semibold mb-2">Generated Ideas:</h3>
+        <div class="prose prose-slate dark:prose-invert max-w-none whitespace-pre-wrap">{{ result() }}</div>
+      </div>
+    }
+  </div>
+</div>
